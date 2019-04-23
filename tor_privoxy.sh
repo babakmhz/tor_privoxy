@@ -3,6 +3,7 @@
 [ "$UID" -eq 0 ] || exec sudo "$0" "$@"
 
 input=$1
+config_exists = 'false'
 
 copy_config(){
     echo 'configuring privoxy config file... /n ========================'
@@ -27,7 +28,7 @@ enable(){
 }
 
 # restart(){
-    
+
 # }
 
 help(){
@@ -35,18 +36,32 @@ help(){
     echo '    tor_privoxy.sh --install'
     echo 'CONFIGURE:'
     echo '    tor_privoxy.sh --configure <distro_name> <bash_name>'
-    echo 'Supported Distro Names:['arch','debian']'
-    echo 'Supported Bash Names:['bash','zsh']'
-
+    echo '    Supported Distro Names:['arch','debian']'
+    echo '    Supported Bash Names:['bash','zsh']'
+    echo 'EXAMPLE :'
+    echo '    tor_privoxy.sh --configure arch bash'
 }
 
 # install(){
     
 # }
 
+config_check(){
+    this_ls = ls . | grep config.txt
+    if [ $this_ls = "" ]; then
+        please_config
+    else
+        config_check = 'true'
+    fi
+}
+
+please_config(){
+    echo 'FATAL: PLEASE CONFIGURE THE SCRIPT VIA THIS COMMAND:'
+    echo 'tor_privoxy.sh --configure <distro_name> <bash_name>'
+}
 
 # terminal_config(){
-    
+
 # }
 
 echo 'tor privoxy runner V1.0'
